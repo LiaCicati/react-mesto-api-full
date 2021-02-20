@@ -1,41 +1,53 @@
 const Card = require('../models/card');
+const NotFoundError = require('../errors/NotFoundError');
+const BadRequestError = require('../errors/BadRequestError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
-const getCards = (req, res) => {
+const getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.status(200).send(cards))
-    .catch(() => {
-      res.status(500).send({ message: 'Ошибка сервера' });
-    });
+    .then((cards) => {
+      if (!cards) {
+        throw new NotFoundError('Данные не найдены!');
+      }
+      res.send(cards);
+    })
+    .catch(next);
 };
 
-const createCard = (req, res) => {
+const createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id;
   Card.create({ name, link, owner })
-    .then((card) => res.status(200).send(card))
-    .catch((err) => {
-      if (err === 'ValidationError') {
-        return res.status(400).send({ message: 'Ошибка валидации' });
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Неправильно переданы данные');
+      } else {
+        res.send(card);
       }
-      return res.status(500).send({ message: 'Ошибка сервера' });
+    })
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(
+          new BadRequestError('Ошибка валидации. Введены некорректные данные'),
+        );
+      }
+      next(err);
     });
 };
 
-const deleteCard = (req, res) => {
-  Card.findByIdAndRemove(req.params.cardId)
+const deleteCard = (req, res, next) => {
+  const { cardId } = req.params;
+  const owner = req.user._id;
+  Card.findById(cardId)
+    .orFail(() => { throw new NotFoundError('Карточка не найдена'); })
     .then((card) => {
-      if (!card) {
-        return res.status(404).send({ message: 'Нет карточки с таким id' });
+      if (card.owner.toString() !== owner) {
+        throw new ForbiddenError('Вы не можете удалить карточку');
       }
-      return res.status(200).send(card);
+      return Card.findByIdAndRemove(cardId);
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(400).send({ message: 'Переданы некорректные данные' });
-      } else {
-        res.status(500).send({ message: 'Ошибка сервера' });
-      }
-    });
+    .then((card) => res.send({ data: card }))
+    .catch(next);
 };
 
 module.exports = {
