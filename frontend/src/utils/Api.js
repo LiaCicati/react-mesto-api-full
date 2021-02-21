@@ -84,9 +84,9 @@ export default class Api {
 }
 
 export const api = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-15",
+  url: "https://api.liaciocarlya.students.nomoreparties.space",
   headers: {
-    authorization: "ffb07e3e-85b9-4652-8210-bfa96acaf140",
+    // authorization: "ffb07e3e-85b9-4652-8210-bfa96acaf140",
     "Content-Type": "application/json",
   },
 });
