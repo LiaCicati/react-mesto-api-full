@@ -18,7 +18,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./dist/* praktikum@84.201.180.99:/home/praktikum/frontend"
+    "deploy": "npm run build && scp -r ./dist/* praktikum@84.201.180.99:/home/praktikum/react-mesto-api-full/frontend"
   },
   "eslintConfig": {
     "extends": "react-app"
