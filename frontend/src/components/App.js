@@ -145,10 +145,14 @@ function App() {
   }
 
   useEffect(() => {
+  
     Promise.all([api.getInitialCards(), api.getUserInfo()])
       .then(([cards, userData]) => {
         setCurrentUser(userData);
         setCards(cards);
+        console.log(userData);
+        console.log(cards);
+        
       })
       .catch((err) => console.log(err));
   }, []);

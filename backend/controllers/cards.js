@@ -54,8 +54,44 @@ const deleteCard = (req, res, next) => {
     .catch(next);
 };
 
+const likeCard = (req, res, next) => {
+  Card.findByIdAndUpdate(
+    req.params._id,
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
+  )
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError(
+          'Карточки с таким id не существует, невозможно проставить лайк',
+        );
+      }
+      res.send(card);
+    })
+    .catch(next);
+};
+
+const dislikeCard = (req, res, next) => {
+  Card.findByIdAndUpdate(
+    req.params._id,
+    { $pull: { likes: req.user._id } },
+    { new: true },
+  )
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError(
+          'Карточки с таким id не существует',
+        );
+      }
+      res.send(card);
+    })
+    .catch(next);
+};
+
 module.exports = {
   getCards,
   createCard,
   deleteCard,
+  likeCard,
+  dislikeCard,
 };
