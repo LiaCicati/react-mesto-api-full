@@ -150,8 +150,8 @@ function App() {
       .then(([cards, userData]) => {
         setCurrentUser(userData);
         setCards(cards);
-        console.log(userData);
-        console.log(cards);
+        // console.log(userData);
+        // console.log(cards);
         
       })
       .catch((err) => console.log(err));
