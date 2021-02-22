@@ -7,7 +7,7 @@ function Card(props) {
   const isOwn = props.card.owner._id === currentUser._id;
 
   const cardDeleteButtonClassName = `element__delete-button ${
-    isOwn ? "element__delete-button_visible" : "element__delete-button_hidden"
+    isOwn ? "element__delete-button_visible" : ""
   }`;
 
   const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
