@@ -15,9 +15,13 @@ const getCards = (req, res, next) => {
 };
 
 const createCard = (req, res, next) => {
-  const { name, link } = req.body;
-  const owner = req.user._id;
-  Card.create({ name, link, owner })
+  // const { name, link } = req.body;
+  // const owner = req.user._id;
+  Card.create({
+    name: req.body.name,
+    link: req.body.link,
+    owner: req.user._id,
+  })
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Неправильно переданы данные');
