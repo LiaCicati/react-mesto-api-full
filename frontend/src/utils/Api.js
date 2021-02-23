@@ -65,7 +65,7 @@ export default class Api {
   }
 
   likeCard(cardId) {
-    return fetch(`${this.url}/cards/likes/${cardId}`, {
+    return fetch(`${this.url}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this.headers,
     }).then((res) => {
@@ -74,7 +74,7 @@ export default class Api {
   }
 
   dislikeCard(cardId) {
-    return fetch(`${this.url}/cards/likes/${cardId}`, {
+    return fetch(`${this.url}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this.headers,
     }).then((res) => {
