@@ -105,32 +105,6 @@ function App() {
       });
   }
 
-  // const onLogin = (emailUser, password) => {
-  //   // авторизация
-  //   auth.authorize(emailUser, password)
-  //     .then((res) => {
-  //       // eslint-disable-next-line consistent-return
-  //       auth.getContent(res.data.token).then((user) => {
-  //         if (user.data) {
-  //           setCurrentUser(user.data);
-
-  //           localStorage.setItem('token', res.data.token);
-  //           setEmail(emailUser);
-  //           setLoggedIn(true);
-  //         } else {
-  //           return new Promise().reject();
-  //         }
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       if (err.data) {
-  //         onOpenPopupInfoTooltip(false, err.data.message);
-  //       } else {
-  //         onOpenPopupInfoTooltip(false, 'Что-то пошло не так');
-  //       }
-  //     });
-  // };
-
   function onSignOut() {
     localStorage.removeItem("token");
     setLoggedIn(false);
