@@ -1,4 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
+const validator = require('validator');
+const BadRequestError = require('../errors/BadRequestError');
 
 const validateUserRegister = celebrate({
   body: Joi.object().keys({
@@ -6,7 +8,12 @@ const validateUserRegister = celebrate({
     password: Joi.string().required().min(8),
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(/^(https?:\/\/(www\.)?)[\w-]+\.[\w./():,-]+#?$/),
+    avatar: Joi.string().custom((url) => {
+      if (!validator.isURL(url)) {
+        throw new BadRequestError('Неверный URL');
+      }
+      return url;
+    }),
   }),
 });
 
@@ -26,8 +33,15 @@ const validateUserId = celebrate({
 const validateCard = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().pattern(/^(https?:\/\/(www\.)?)[\w-]+\.[\w./():,-]+#?$/).required(),
-  }).unknown(true),
+    link: Joi.string()
+      .required()
+      .custom((url) => {
+        if (!validator.isURL(url)) {
+          throw new BadRequestError('Неверный URL');
+        }
+        return url;
+      }),
+  }),
 });
 
 const validateСardId = celebrate({
