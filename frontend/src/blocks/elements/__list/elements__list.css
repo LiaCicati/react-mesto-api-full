@@ -10,13 +10,13 @@
 
 }
 
-@media screen and (max-width: 900px) and (min-width: 600px) {
+@media screen and (max-width: 935px) and (min-width: 651px) {
     .elements__list {
         grid-template-columns: repeat(2, 282px);
     }
 }
 
-@media screen and (max-width: 599px) and (min-width: 300px) {
+@media screen and (max-width: 650px) and (min-width: 300px) {
     .elements__list {
         grid-template-columns: repeat(1, 282px);
         grid-gap: 20px;
