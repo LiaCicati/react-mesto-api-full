@@ -86,7 +86,6 @@ export default class Api {
 export const api = new Api({
   url: "https://api.liaciocarlya.students.nomoreparties.space",
   headers: {
-    // authorization: "ffb07e3e-85b9-4652-8210-bfa96acaf140",
      authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
   },
