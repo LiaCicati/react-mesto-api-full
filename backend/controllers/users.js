@@ -28,7 +28,7 @@ const getUserById = (req, res, next) => User.findOne({ _id: req.params.id })
   })
   .catch(next);
 
-const getUserMe = (req, res, next) => {
+const getUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(() => { throw new NotFoundError('Пользователь не найден'); })
     .then((user) => res.send(user))
@@ -79,5 +79,5 @@ module.exports = {
   getUserById,
   createUser,
   login,
-  getUserMe,
+  getUser,
 };
