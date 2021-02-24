@@ -28,10 +28,10 @@
     justify-content: center;
     box-sizing: border-box;
     padding: 0 25px;
+    visibility: hidden;
+    opacity: 0;
     top: 0;
     right: 0;
     z-index: 1;
-    visibility: hidden;
-    opacity: 0;
     transition: visibility .5s ease-out, opacity 0.5s ease-in-out;
 }
