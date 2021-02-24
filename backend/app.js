@@ -7,18 +7,22 @@ const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 console.log(process.env.NODE_ENV);
+
 const routes = require('./routes/index');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 const { PORT = 3000 } = process.env;
+
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
+
 app.use(cors());
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
@@ -37,6 +41,7 @@ app.use(errors());
 app.use('*', (req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
+
 app.use(errorHandler);
 
 app.listen(PORT, () => {

@@ -29,9 +29,7 @@ const createCard = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(
-          new BadRequestError('Ошибка валидации. Введены некорректные данные'),
-        );
+        next(new BadRequestError('Ошибка валидации. Введены некорректные данные'));
       }
       next(err);
     });
@@ -48,7 +46,7 @@ const deleteCard = (req, res, next) => {
       }
       return Card.findByIdAndRemove(cardId);
     })
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch(next);
 };
 
@@ -61,9 +59,7 @@ const likeCard = (req, res, next) => {
   )
     .then((card) => {
       if (!card) {
-        throw new NotFoundError(
-          'Карточки с таким id не существует, невозможно проставить лайк',
-        );
+        throw new NotFoundError('Карточки с таким id не существует, невозможно проставить лайк');
       }
       res.send(card);
     })
@@ -79,9 +75,7 @@ const dislikeCard = (req, res, next) => {
   )
     .then((card) => {
       if (!card) {
-        throw new NotFoundError(
-          'Карточки с таким id не существует',
-        );
+        throw new NotFoundError('Карточки с таким id не существует');
       }
       res.send(card);
     })

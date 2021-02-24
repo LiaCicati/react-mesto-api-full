@@ -13,13 +13,13 @@ const userSchema = new mongoose.Schema({
       validator(email) {
         return validator.isEmail(email);
       },
-      message: 'Неверный email!',
+      message: 'Введён неверный email!',
     },
   },
   password: {
     type: String,
     required: true,
-    minlength: 8,
+    minlength: 5,
     select: false,
   },
   name: {
