@@ -50,10 +50,32 @@ const validateСardId = celebrate({
   }),
 });
 
+const validateProfile = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30),
+  }),
+});
+
+const validateAvatar = celebrate({
+  body: Joi.object().keys({
+    avatar: Joi.string()
+      .required()
+      .custom((url) => {
+        if (!validator.isURL(url)) {
+          throw new BadRequestError('Неверный URL');
+        }
+        return url;
+      }),
+  }),
+});
+
 module.exports = {
   validateUserRegister,
   validateUser,
   validateUserId,
   validateCard,
   validateСardId,
+  validateAvatar,
+  validateProfile,
 };

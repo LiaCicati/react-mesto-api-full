@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
@@ -74,10 +75,35 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
+// В 13-ом спринте я не делала доп задание, проста сейчас решила добавить новый функционал, но добавив сейчас всё намного лучше, спасибо!
+const updateUser = (req, res, next) => {
+  const { name, about } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, about }, { new: true })
+    .then((user) => {
+      res.send(user);
+    })
+    .catch(next);
+};
+
+const updateAvatar = (req, res, next) => {
+  const { avatar } = req.body;
+  User.findByIdAndUpdate(req.user._id, { avatar }, { new: true })
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Нет пользователя с таким id');
+      } else {
+        res.send(user);
+      }
+    })
+    .catch(next);
+};
+
 module.exports = {
   getUsers,
   getUserById,
   createUser,
   login,
   getUser,
+  updateUser,
+  updateAvatar,
 };
