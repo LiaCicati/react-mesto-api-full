@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -10,6 +11,7 @@ console.log(process.env.NODE_ENV);
 
 const routes = require('./routes/index');
 const errorHandler = require('./middlewares/errorHandler');
+const NotFoundError = require('./errors/NotFoundError');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -39,7 +41,7 @@ app.use(errorLogger);
 app.use(errors());
 
 app.use('*', (req, res) => {
-  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
+  throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
 
 app.use(errorHandler);
