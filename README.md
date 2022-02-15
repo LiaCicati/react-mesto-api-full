@@ -1,12 +1,12 @@
 # react-mesto-api-full
-Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. 
+Repository for the application of the `Mesto` project, including the front-end and back-end parts of the application with the following features: authorization and registration of users, operations with cards and users.
   
-- ### Ссылка на сайт :
+- ### Link to the website :
   <https://liaciocarlya.students.nomoreparties.space>
 
   - ### REST API :
   <https://api.liaciocarlya.students.nomoreparties.space>
 
-- ### Публичный IP:
+- ### Public IP:
 ### 84.201.180.99
 
